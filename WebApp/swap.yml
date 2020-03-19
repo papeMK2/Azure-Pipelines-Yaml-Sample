@@ -1,0 +1,38 @@
+# Swap web app stating slot template
+# This template swap a staging slot
+
+parameters:
+  # Target web app name
+  appName: ''
+  # Resource Group Name in a target web app
+  resourceGroupName: ''
+  # Source slot name
+  slotName: ''
+  # Environment name
+  environment: ''
+  # Your subscription Id
+  azureSubscription: ''
+  # Working vm image
+  vmImage: 'windows-latest'
+
+jobs:
+- deployment: Swap_Slot
+  displayName: 'Swap'
+  pool:
+    vmImage: ${{parameters.vmImage}}
+  environment: ${{parameters.environment}}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: AzureAppServiceManage@0
+          displayName: 'Swap'
+          inputs:
+            azureSubscription: ${{parameters.azureSubscription}}
+            Action: 'Swap Slots'
+            WebAppName: ${{parameters.appName}}
+            ResourceGroupName: ${{parameters.resourceGroupName}}
+            SourceSlot: ${{parameters.slotName}}
+
+
+  

@@ -1,0 +1,40 @@
+# Build template
+# This template build an ASP.NET Core projects
+
+parameters:
+  # Build machine's image
+  # default value is windows-latest
+  # e.g.) windows-2019, 
+  vmImage: 'windows-latest'
+  # Build configuration
+  # e.g.) Release, Debug
+  buildConfiguration: ''
+  # Target project path
+  # e.g.) **/*.csproj, **/aspnetcore-sample.csproj
+  projects: ''
+
+jobs:
+- job: Build
+  pool:
+    vmImage: ${{parameters.vmImage}}
+  steps:
+  # Build a project
+  - task: DotNetCoreCLI@2
+    displayName: 'Build'
+    inputs:
+      command: 'build'
+      projects: ${{parameters.projects}}
+      arguments: '--configuration ${{parameters.buildConfiguration}}'
+
+# Publish build artifact
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish'
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+      projects: ${{parameters.projects}}
+      arguments: '--configuration ${{parameters.buildConfiguration}} --output $(System.DefaultWorkingDirectory)/publish'
+      zipAfterPublish: true
+  - publish: publish
+    displayName: 'Publish artifact'
+    artifact: webApp

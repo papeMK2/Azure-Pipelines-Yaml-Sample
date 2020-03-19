@@ -1,0 +1,40 @@
+# Release template
+# Deploy ASP.NET Core app for azure web app
+
+parameters:
+  # Release machine's vm Image
+  vmImage: 'windows-latest'
+  # Your subscription Id
+  azureSubscription: ''
+  # Deploy target web app name
+  appName: ''
+  # Artifact name
+  # Created build template
+  artifactName: ''
+  # Web app slot name
+  # Default value is production
+  # e.g.) slot
+  appSlotName: 'production'
+  # Environment name
+  # If environment is not exist, create them
+  environment: ''
+
+jobs:
+- deployment: Deploy_Azure_Web_App
+  displayName: 'Release'
+  pool:
+    vmImage: ${{parameters.vmImage}}
+  environment: ${{parameters.environment}}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: AzureWebApp@1
+          displayName: 'Deploy to Azure Web App'
+          inputs:
+            azureSubscription: ${{parameters.azureSubscription}}
+            appType: 'WebApp'
+            appName: ${{parameters.appName}}
+            slotName: ${{parameters.appSlotName}}
+            package: '$(Pipeline.Workspace)/**/$(artifactName)'
+            deploymentMethod: runFromPackage

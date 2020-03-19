@@ -1,0 +1,56 @@
+# Pipeline starter template
+# ASP.NET Core
+
+trigger:
+  branches:
+    include:
+      - '*' # All branches execute build
+
+variables:
+  appName: ''
+  vmImage: ''
+  buildConfiguration: 'Release'
+  projects: '**/*.csproj'
+  azureSubscription: ''
+  artifactName: ''
+  resourceGroupName: ''
+  slotName: ''
+  environment-release: ''
+  environment-swap: ''
+
+stages:
+- stage: Build
+  jobs:
+  - template: build.yml
+    parameters:
+      vmImage: $(vmImage)
+      buildConfiguration: $(buildConfiguration)
+      projects: $(projects)
+
+- stage: 'Release'
+  dependsOn:
+  - Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) # only Build stage was succeeded and source branch is master 
+  jobs:
+    - template: release.yml
+      parameters:
+        vmImage: $(vmImage)
+        azureSubscription: $(azureSubscription)
+        appName: $(appName)
+        environment: $(environment-release)
+        artifactName: $(artifactName)
+
+# Swap slot when Release stage was succeeded.
+- stage: Swap
+  dependsOn:
+  - Release
+  condition: succeeded()
+  jobs:
+    - template: swap.yml
+      parameters:
+        vmImage: $(vmImage)
+        azureSubscription: $(azureSubscription)
+        appName: $(appName)
+        resourceGroupName: $(resourceGroupName)
+        environment: $(environment-swap)
+        slotName: $(slotName)
