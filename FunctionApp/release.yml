@@ -1,0 +1,40 @@
+# Release template
+# Deploy .NET runtime Function App
+
+parameters:
+    # Release machine's vm Image
+    vmImage: 'windows-latest'
+    # Your subscription Id
+    azureSubscription: ''
+    # Deploy target function app name
+    appName: ''
+    # Artifact name
+    # Created build template
+    artifactName: ''
+    # function app slot name
+    # Default value is production
+    # e.g.) slot
+    appSlotName: 'production'
+    # Environment name
+    # If environment is not exist, create them
+    environment: ''
+  
+jobs:
+- deployment: Deploy_Azure_Functions
+  displayName: 'Release'
+  pool:
+    vmImage: ${{parameters.vmImage}}
+  environment: ${{parameters.environment}}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: AzureFunctionApp@1
+          displayName: 'Deploy to Azure Functions'
+          inputs:
+            azureSubscription: ${{parameters.azureSubscription}}
+            appType: 'functionApp'
+            appName: ${{parameters.appName}}
+            slotName: ${{parameters.appSlotName}}
+            package: '$(Pipeline.Workspace)/**/$(artifactName)'
+            deploymentMethod: runFromPackage

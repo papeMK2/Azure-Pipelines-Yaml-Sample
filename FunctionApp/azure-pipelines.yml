@@ -1,0 +1,56 @@
+# Starter template
+# .NET Core runtime function app
+
+# Build all branches
+trigger:
+  branches:
+    include:
+      - '*'
+
+variables:
+  stagingFunctionAppName: ''
+  stagingEnvironment: ''
+  productionFunctionAppName: ''
+  productionEnvironment: ''
+  azureSubscription: ''
+  vmImage: ''
+  project: ''
+  artifactName: ''
+  buildConfiguration: ''
+  
+stages:
+- stage: Build
+  jobs:
+  - template: build.yml
+    parameters:
+      vmImage: $(vmImage)
+      buildConfiguration: $(buildConfiguration)
+      projects: $(project)
+
+# If commited master branch, run them
+- stage: StagingRelease
+  dependsOn:
+  - Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  jobs:
+    - template: release.yml
+      parameters:
+        vmImage: $(vmImage)
+        azureSubscription: $(azureSubscription)
+        appName: 'stagingFunctionAppName'
+        artifactName: $(artifactName)
+        environment: $(stagingEnvironment)
+
+# If succeeded release staging, run them
+- stage: ProductionRelease
+  dependsOn:
+  - StagingRelease
+  condition: succeeded()
+  jobs:
+    - template: release.yml
+      parameters:
+        vmImage: $(vmImage)
+        azureSubscription: $(azureSubscription)
+        appName: $(productionFunctionAppName)
+        environment: $(productionEnvironment)
+        artifactName: $(artifactName)
