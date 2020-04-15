@@ -57,4 +57,4 @@ jobs:
     displayName: echo
   - ${{ if eq(parameters.boolVal, true) }}:
     - script: echo ${{ parameters.numVal }}
-    displayName: echo num
+      displayName: 'echo num'
