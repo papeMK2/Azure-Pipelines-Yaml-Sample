@@ -7,7 +7,6 @@ parameters:
   values:
   - Release
   - Debug
-
 - name: vmImage
   displayName: VM Image
   type: string
