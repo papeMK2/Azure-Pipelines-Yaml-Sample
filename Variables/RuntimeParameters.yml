@@ -25,7 +25,7 @@ trigger:
 - master
 
 pool:
-  vmImage: ${{ parameters.vmImage }}
+  vmImage: 'windows-latest'
 
 steps:
 - script: echo ${{ parameters.buildConfig }}
