@@ -1,4 +1,7 @@
 # Runtime Parameters demo 
+trigger:
+- master
+
 parameters:
 - name: buildConfig
   displayName: Build Config
@@ -43,9 +46,6 @@ parameters:
   - 5
   - 6
   - 7
-
-trigger:
-- master
 
 jobs:
 - job: echo
