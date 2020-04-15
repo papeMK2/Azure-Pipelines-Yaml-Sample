@@ -56,4 +56,4 @@ jobs:
   - script: echo ${{ parameters.buildConfig }}
     displayName: echo
   - ${{ if eq(parameters.boolVal, true) }}:
-    - script: echo "Running all the tests"
+    - script: echo ${{ parameters.numVal }}
