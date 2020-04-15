@@ -22,6 +22,28 @@ parameters:
   - macOS-10.14
   - macOS-10.15
 
+- name: boolVal
+  displayName: second
+  type: boolean
+  default: true
+  values:
+  - true
+  - false
+
+- name: numVal
+  displayName: number
+  type: number
+  default: 0
+  values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+
 trigger:
 - master
 
@@ -33,4 +55,5 @@ jobs:
   steps:
   - script: echo ${{ parameters.buildConfig }}
     displayName: echo
-
+  - ${{ if eq(parameters.boolVal, true) }}:
+    - script: echo "Running all the tests"
