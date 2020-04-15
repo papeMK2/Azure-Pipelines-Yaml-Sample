@@ -7,10 +7,10 @@ parameters:
   values:
   - Release
   - Debug
-- name: vmImage
+- name: image
   displayName: VM Image
   type: string
-  default: windows-latest
+  default: windows-2019
   values:
   - windows-latest
   - windows-2019
@@ -25,7 +25,7 @@ trigger:
 - master
 
 pool:
-  vmImage: '${{ parameters.vmImage }}'
+  vmImage: ${{ parameters.image }}
 
 steps:
 - script: echo ${{ parameters.buildConfig }}
