@@ -72,8 +72,8 @@ parameters:
 - name: jobItems
   type: jobList
   default: 
-    - jobItem
-    - jobItem2
+    - $(jobItem)
+    - $(jobItem2)
 
 jobs:
 - job: echo
