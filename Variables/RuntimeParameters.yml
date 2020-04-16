@@ -73,9 +73,7 @@ parameters:
   type: jobList
   default: 
     - jobItem
-  values:
-  - jobItem
-  - jobItem2
+    - jobItem2
 
 jobs:
 - job: echo
