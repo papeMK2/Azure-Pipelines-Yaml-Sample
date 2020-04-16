@@ -73,12 +73,12 @@ parameters:
   type: jobList
   default: 
     - job: itemsJob1
-      displayName: job no1
+      displayName: items job no1
       pool:
         vmImage: 'windows-latest'
       steps:
-      - script: echo no1
-        displayName: echo
+      - script: echo items job no1
+        displayName: echo items no1
   # values:
   # - job: no1
   #   displayName: job no1
