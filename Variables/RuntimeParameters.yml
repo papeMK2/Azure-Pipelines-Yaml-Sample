@@ -69,6 +69,14 @@ parameters:
     - script: echo no2
       displayName: echo
 
+    job: no3
+    displayName: job no3
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - script: echo no3
+      displayName: echo3
+
 - name: jobItems
   type: jobList
   default: 
@@ -94,4 +102,5 @@ jobs:
       displayName: 'echo num'
 
 - ${{ parameters.jobItem }}
+- ${{ parameters.jobItem2 }}
 - ${{ parameters.jobItems }}
