@@ -52,7 +52,7 @@ parameters:
   default:
     displayName: job no1
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: 'windows-latest'
     steps:
     - script: echo no1
       displayName: echo
