@@ -79,7 +79,7 @@ parameters:
       steps:
       - script: echo items job no1
         displayName: echo items no1
-  values: [itemsJob1]
+  values: [jobItem, jobItem2]
 
 jobs:
 - job: echo
