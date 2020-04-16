@@ -53,7 +53,7 @@ parameters:
     job: no1
     displayName: job no1
     pool:
-      vmImage: $[parameters.vmImage]
+      vmImage: ${{ vmImage }}
     steps:
     - script: echo no1
       displayName: echo
