@@ -50,6 +50,7 @@ parameters:
 - name: jobItem
   type: job
   default:
+    job: no1
     displayName: job no1
     pool:
       vmImage: 'windows-latest'
