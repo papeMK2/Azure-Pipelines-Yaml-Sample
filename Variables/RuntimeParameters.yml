@@ -70,4 +70,4 @@ jobs:
     - script: echo ${{ parameters.numVal }}
       displayName: 'echo num'
 
-- job: ${{ parameters.jobItem }}
+- ${{ parameters.jobItem }}
