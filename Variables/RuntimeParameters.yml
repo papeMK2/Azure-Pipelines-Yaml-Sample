@@ -47,6 +47,17 @@ parameters:
   - 6
   - 7
 
+- name: jobItem
+  type: job
+  default:
+    displayName: job no1
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    steps:
+    - script: echo no1
+      displayName: echo
+
+
 jobs:
 - job: echo
   displayName: echo
@@ -55,6 +66,9 @@ jobs:
   steps:
   - script: echo ${{ parameters.buildConfig }}
     displayName: echo
+    - ${{ parameters.jobItem }}
   - ${{ if eq(parameters.boolVal, true) }}:
     - script: echo ${{ parameters.numVal }}
       displayName: 'echo num'
+
+- job: ${{ parameters.jobItem }}
