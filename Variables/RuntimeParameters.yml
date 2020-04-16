@@ -57,22 +57,25 @@ parameters:
     steps:
     - script: echo no1
       displayName: echo
-  values:
-  - job: no1
-    displayName: job no1
+
+- name: jobItem2
+  type: job
+  default:
+    job: no2
+    displayName: job no2
     pool:
       vmImage: 'windows-latest'
     steps:
-    - script: echo no1
-      displayName: echo
-    
-  - job: no2
-    displayName: job no2
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
     - script: echo no2
-      displayName: echo no2
+      displayName: echo
+
+- name: jobItems
+  type: jobList
+  default: 
+    - jobItem
+  values:
+  - jobItem
+  - jobItem2
 
 jobs:
 - job: echo
@@ -87,3 +90,4 @@ jobs:
       displayName: 'echo num'
 
 - ${{ parameters.jobItem }}
+- ${{ parameters.jobItems }}
