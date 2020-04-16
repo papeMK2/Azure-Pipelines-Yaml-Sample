@@ -79,21 +79,21 @@ parameters:
       steps:
       - script: echo no1
         displayName: echo
-  values:
-  - job: no1
-    displayName: job no1
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - script: echo no1
-      displayName: echo
-  - job: no2
-    displayName: job no2
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - script: echo no2
-      displayName: echo2
+  # values:
+  # - job: no1
+  #   displayName: job no1
+  #   pool:
+  #     vmImage: 'windows-latest'
+  #   steps:
+  #   - script: echo no1
+  #     displayName: echo
+  # - job: no2
+  #   displayName: job no2
+  #   pool:
+  #     vmImage: 'windows-latest'
+  #   steps:
+  #   - script: echo no2
+  #     displayName: echo2
 
 jobs:
 - job: echo
