@@ -88,4 +88,4 @@ jobs:
       displayName: 'echo num'
 
 - ${{ parameters.jobItem }}
-- ${{ parameters.jobItems }}
+# - ${{ parameters.jobItems }}
