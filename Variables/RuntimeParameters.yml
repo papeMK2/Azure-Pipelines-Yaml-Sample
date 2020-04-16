@@ -69,14 +69,6 @@ parameters:
     - script: echo no2
       displayName: echo
 
-    job: no3
-    displayName: job no3
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - script: echo no3
-      displayName: echo3
-
 - name: jobItems
   type: jobList
   default: 
@@ -87,6 +79,14 @@ parameters:
       steps:
       - script: echo items job no1
         displayName: echo items no1
+    
+    - job: itemsJob2
+      displayName: items job no2
+      pool:
+        vmImage: 'windows-latest'
+        steps:
+        - script: echo items job no2
+          displayName: echo items no2
   values: [jobItem, jobItem2]
 
 jobs:
