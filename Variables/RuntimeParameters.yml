@@ -80,29 +80,20 @@ parameters:
       - script: echo items job no1
         displayName: echo items no1
   values:
-    - job: items job no1
-      displayName: job no1
-      pool:
-        vmImage: 'windows-latest'
-      steps:
-      - script: echo items job no1
-        displayName: echo items no1
-      
-  # - job: no1
-  #   displayName: job no1
-  #   pool:
-  #     vmImage: 'windows-latest'
-  #   steps:
-  #   - script: echo no1
-  #     displayName: echo
-  # - job: no2
-  #   displayName: job no2
-  #   pool:
-  #     vmImage: 'windows-latest'
-  #   steps:
-  #   - script: echo no2
-  #     displayName: echo2
-
+  job: itemsJob1
+  displayName: items job no1
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - script: echo items job no1
+    displayName: echo
+    # - job: items job no1
+    #   displayName: job no1
+    #   pool:
+    #     vmImage: 'windows-latest'
+    #   steps:
+    #   - script: echo items job no1
+    #     displayName: echo items no1
 jobs:
 - job: echo
   displayName: echo
