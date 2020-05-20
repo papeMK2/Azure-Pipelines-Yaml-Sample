@@ -37,7 +37,7 @@ stages:
       parameters:
         vmImage: $(vmImage)
         azureSubscription: $(azureSubscription)
-        appName: 'stagingFunctionAppName'
+        appName: $(stagingFunctionAppName)
         artifactName: $(artifactName)
         environment: $(stagingEnvironment)
 
