@@ -13,28 +13,28 @@ parameters:
     # e.g.) **/*.csproj, **/functionapp-sample.csproj
     projects: ''
   
-  jobs:
-  - job: Build
-    pool:
-      vmImage: ${{parameters.vmImage}}
-    steps:
-    # Build a project
-    - task: DotNetCoreCLI@2
-      displayName: 'Build'
-      inputs:
-        command: 'build'
-        projects: ${{parameters.projects}}
-        arguments: '--configuration ${{parameters.buildConfiguration}}'
-  
-  # Publish build artifact
-    - task: DotNetCoreCLI@2
-      displayName: 'Publish'
-      inputs:
-        command: 'publish'
-        publishWebProjects: false
-        projects: ${{parameters.projects}}
-        arguments: '--configuration ${{parameters.buildConfiguration}} --output $(System.DefaultWorkingDirectory)/publish'
-        zipAfterPublish: true
-    - publish: publish
-      displayName: 'Publish artifact'
-      artifact: webApp
+jobs:
+- job: Build
+  pool:
+    vmImage: ${{parameters.vmImage}}
+  steps:
+  # Build a project
+  - task: DotNetCoreCLI@2
+    displayName: 'Build'
+    inputs:
+      command: 'build'
+      projects: ${{parameters.projects}}
+      arguments: '--configuration ${{parameters.buildConfiguration}}'
+
+# Publish build artifact
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish'
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: ${{parameters.projects}}
+      arguments: '--configuration ${{parameters.buildConfiguration}} --output $(System.DefaultWorkingDirectory)/publish'
+      zipAfterPublish: true
+  - publish: publish
+    displayName: 'Publish artifact'
+    artifact: webApp
